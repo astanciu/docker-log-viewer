@@ -1,0 +1,36 @@
+$bg : rgba(0,0,0,0);
+$fg : rgb(80, 97, 105);
+$fgh : lighten($fg, 10%);
+
+
+
+body ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+  background:$bg;
+  border-radius: 0px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: $fg;
+  -webkit-transition: none;
+  transition: none;
+}
+
+body ::-webkit-scrollbar-thumb:window-inactive {
+  background: $fg;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: $fgh;
+}
+
+body ::-webkit-scrollbar-corner {
+  background: $bg;
+}

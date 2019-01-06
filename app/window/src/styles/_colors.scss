@@ -1,0 +1,17 @@
+
+$gray: hsl(204, 19%, 26%);
+$gary-darker1: adjust-color($gray, $lightness: -5%);
+$orange: #d69a09;
+
+// Layout
+$top-bar-bg: adjust-color($gray, $lightness: -15%);;
+$side-bar-bg: $gary-darker1;
+$main-bg: $gray;
+
+
+// Typography
+$body-color: #748294;
+$text-highlight: $orange;
+
+// $side-bar-container-hover-bg: #353f4a;
+$side-bar-container-hover-bg: adjust-color($side-bar-bg, $lightness: +5%);;

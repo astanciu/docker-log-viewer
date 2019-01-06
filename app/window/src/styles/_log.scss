@@ -1,0 +1,43 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.main-toolbar {
+  color: #e2e2e2;
+  background-color: #434c50;
+  height: 65px;
+  min-height: 65px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+
+}
+
+.main-logs {
+  overflow-y: overlay;
+  overflow-x: overlay;
+  padding-left: 20px;
+  flex-grow: 1;
+}
+
+.log {
+  display: block;
+  unicode-bidi: embed;
+  font-family: 'Roboto Mono', monospace;
+  white-space: pre;
+  color: #97a0a7;
+  font-size: 0.8em;
+  line-height: 1.428em;
+  
+  &:first-line {
+    color: #97a0a7;
+  }
+  
+}

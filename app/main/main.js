@@ -1,8 +1,6 @@
 const path = require('path')
 const { app, BrowserWindow } = require('electron');
 
-// const webPath = __dirname + '/../'
-// const watch = '/Users/alex/projects/docker-logui/app/window/src/App.jsx'
 const watch = '/Users/alex/projects/docker-logui/app/window/dist'
 const electronPath = __dirname + '/../../node_modules/.bin/electron'
 
@@ -16,10 +14,14 @@ function createWindow() {
     title: 'Docker Log Viewer',
     width: 800,
     height: 600,
+    x: 10,
+    y: 10,
+
     webPreferences: {
       nodeIntegration: true
     },
-    titleBarStyle: 'default',
+    // frame: false,
+    titleBarStyle: 'hiddenInset',
     icon: 'assets/icon.icns'
   };
   window = new BrowserWindow(windowOptions);

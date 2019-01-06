@@ -1,0 +1,37 @@
+// @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400|Poppins:400');
+@import url('https://fonts.googleapis.com/css?family=Jura:300,400,500,600,700|Roboto+Mono');
+
+html {font-size: 16px;}
+
+body {
+  background-color: white;
+  font-family: 'Jura';
+  font-weight: 400;
+  line-height: 1.5;
+  color: $body-color;
+}
+
+p {margin-bottom: 1.250em;}
+
+h1, h2, h3, h4, h5 {
+  margin: 1.250em 0 0.64em;
+  font-family: 'Jura', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.802em;
+}
+
+h2 {font-size: 1.602em;}
+
+h3 {font-size: 1.424em;}
+
+h4 {font-size: 1.266em;}
+
+h5 {font-size: 1.125em;}
+
+small, .text_small {font-size: 0.889em;}
+.center { text-align: center;}

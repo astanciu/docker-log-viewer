@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const ReactRootPlugin = require('html-webpack-root-plugin');
 const ReactRootPlugin = require('./react-root');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -15,7 +14,9 @@ console.log(`DEV MODE: ${devMode}`);
 const indexOptions = {
   title: packageJSON.build.productName,
   'meta': {
-    'Content-Security-Policy': { 'http-equiv': 'Content-Security-Policy', 'content': "default-src 'self'; style-src 'self' 'unsafe-inline'" }
+    'Content-Security-Policy': { 
+      'http-equiv': 'Content-Security-Policy', 
+      'content': "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.gstatic.com; " }
   }
 }
 
@@ -27,18 +28,6 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'cheap-module-source-map',
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       styles: {
-  //         name: 'styles',
-  //         test: /\.css$/,
-  //         chunks: 'all',
-  //         enforce: true
-  //       }
-  //     }
-  //   }
-  // },
   plugins: [
     new CleanWebpackPlugin(['dist'], { root: `${projectRoot}/app/window`}),
     new HtmlWebpackPlugin(indexOptions),
