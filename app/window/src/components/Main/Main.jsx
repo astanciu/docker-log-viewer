@@ -1,8 +1,7 @@
 import React from 'react';
-import { debounce, throttle } from 'lodash';
+import { throttle } from 'lodash';
+import { Button, Checkbox } from 'semantic-ui-react';
 import { LogPanel } from '../LogPanel/LogPanel';
-import { Button } from 'semantic-ui-react';
-const STORE_SIZE = 200;
 
 export class Main extends React.Component {
   test = 1;
@@ -19,25 +18,10 @@ export class Main extends React.Component {
   }
   componentWillMount() {
     this.start();
-
-    // setInterval(() => {
-    //   this.props.stream.write(this.test++ + ' - Hello, we are adding some log lines. Hello, we are adding some log lines. Hello, we are adding some log lines. Hello, we are adding some log lines.  ')
-    // }, 500);
   }
   createLogStore = () => {
     const store = new Array();
     store.name = 'Log Store';
-    let p = function() {
-      let result = Array.prototype.push.apply(this, arguments);
-      // console.log('After push: ', this.length);
-      if (this.length >= STORE_SIZE) {
-        store.splice(0, store.length - 40);
-      }
-      // console.log('After push: ', this.length);
-      return result;
-    };
-    store.push = p.bind(store);
-
     return store;
   };
   componentWillReceiveProps(nextProps) {
@@ -47,17 +31,11 @@ export class Main extends React.Component {
   }
   componentWillUnmount() {
     this.stop();
-    document.removeEventListener('wheel', this.userEvent);
-    document.removeEventListener('keydown', this.userEvent);
   }
-  componentDidMount() {
-    document.addEventListener('wheel', this.userEvent);
-    document.addEventListener('keydown', this.userEvent);
-  }
+
   clearLogs = () => {
-    console.log('clearing logs');
     this.setState({ logs: this.createLogStore() });
-  };
+  }
   start = () => {
     this.streaming = true;
     this.props.stream.on('data', this.streamListener);
@@ -81,7 +59,7 @@ export class Main extends React.Component {
 
   streamListener = chunk => {
     const line = chunk.toString('utf8');
-    this.queue.push({line, key: Math.random()});
+    this.queue.push({ line, key: Math.random() });
     this.addLines();
   };
 
@@ -90,33 +68,16 @@ export class Main extends React.Component {
       const logs = this.state.logs;
       logs.push(...this.queue);
       this.queue = [];
-      this.setState({ logs });
-      this.scrollToBottom();
+      this.setState({ logs, scrollToRow: logs.length - 1 });
+      // this.scrollToBottom();
     },
     250,
     { leading: false, trailing: true }
   );
 
-  addLine = line => {
-    const logs = this.state.logs;
-    logs.push(line);
-    this.setState({ logs });
-    this.scrollToBottom();
+  setFollow = shouldFollow => {
+    this.setState({ autoScroll: shouldFollow });
   };
-
-  scrollToBottom = throttle(
-    () => {
-      if (this.state.autoScroll) {
-        this.bottom.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest'
-        });
-      }
-    },
-    250,
-    { trailing: true }
-  );
 
   pause = () => {
     this.streaming ? this.stop() : this.start();
@@ -131,7 +92,7 @@ export class Main extends React.Component {
       <div className="main">
         <div className="main-content">
           <div className="main-toolbar">
-            <div>
+            {/* <div>
               <Button size="small" onClick={this.pause}>
                 Pause
               </Button>
@@ -142,13 +103,14 @@ export class Main extends React.Component {
                 Clear
               </Button>
             </div>
-            <div>AutoScroll: {this.state.autoScroll + ''}</div>
+            <div><Checkbox checked={this.state.autoScroll} label="Follow"/></div> */}
           </div>
           <div className="main-logs" ref={el => (this.logContainer = el)}>
-            <LogPanel logs={this.state.logs} wrap={this.state.wrap} />
-            <div
-              ref={el => (this.bottom = el)}
-              style={{ height: '20px', width: '100%' }}
+            <LogPanel
+              logs={this.state.logs}
+              wrap={this.state.wrap}
+              scrollToRow={this.state.scrollToRow}
+              setFollow={this.setFollow}
             />
           </div>
         </div>

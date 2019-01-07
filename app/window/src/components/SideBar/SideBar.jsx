@@ -4,8 +4,37 @@ import { Button, Icon } from 'semantic-ui-react';
 
 export class SideBar extends React.Component {
   state = {
+    width: null,
     selected: ''
   }
+  componentWillMount(){
+    let width = 200
+    this.setState({width})
+  }
+  resizeDragMouseDown = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    document.addEventListener('mousemove', this.resizeMouseMove)
+    document.addEventListener('mouseup', this.resizeDragMouseUp)
+  }
+  resizeMouseMove = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    let width = e.pageX
+    if (width < 200) width = 200
+    if (width > 400) width = 400
+    this.setState({width})
+  }
+  resizeDragMouseUp = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    // console.log('Mouse Up', e.target)
+    document.removeEventListener('mousemove', this.resizeMouseMove)
+    document.removeEventListener('mouseup', this.resizeDragMouseUp)
+  }
+
+
   selectContainer = id => this.setState({selected: id})
   render() {
     const list = this.props.containers.map(c => (
@@ -18,7 +47,9 @@ export class SideBar extends React.Component {
       />
     ));
     return (
-      <div className="side-bar">
+      <div className="side-bar" style={{width: this.state.width}}>
+       <div id="dragbar" 
+       onMouseDown={this.resizeDragMouseDown} />
         <div className="side-bar-content">
           <div className="side-bar-header">Containers</div>
           <div className="container-list">{list}</div>

@@ -21,14 +21,16 @@
 }
 
 .main-logs {
-  overflow-y: overlay;
-  overflow-x: overlay;
+  overflow-y: hidden;
+  overflow-x: hidden;
   padding-left: 20px;
   flex-grow: 1;
+  flex: '1 1 auto'
 }
 
 .log {
   display: block;
+  width: max-content !important;
   unicode-bidi: embed;
   font-family: 'Roboto Mono', monospace;
   white-space: pre;
@@ -39,5 +41,13 @@
   &:first-line {
     color: #97a0a7;
   }
-  
 }
+
+.ReactVirtualized__Grid__innerScrollContainer{
+  overflow: visible !important;
+}
+.ReactVirtualized__Grid.ReactVirtualized__List:focus{
+  outline: none;
+}
+ 
+
