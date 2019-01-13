@@ -15,14 +15,16 @@ export class LogPanel extends React.Component {
   }
   animationComplete = () => {};
   onScroll = ({clientHeight, scrollHeight, scrollTop}) => {
-    if (scrollTop < this.prevScrollTop){
+    if (this.props.follow && scrollTop < this.prevScrollTop){
       // Scrolled up, stop following
+      console.log('Stop follow')
       this.prevScrollTop = scrollTop;
       return this.props.setFollow(false)
     }
 
-    if (scrollTop + clientHeight === scrollHeight){
+    if ( !this.props.follow && scrollTop + clientHeight - 8 >= scrollHeight){
       // Scrolled to the bottom, start following
+      console.log('Start follow...')
       return this.props.setFollow(true)
     }
     this.prevScrollTop = scrollTop;
@@ -63,6 +65,7 @@ export class LogPanel extends React.Component {
             rowCount={this.props.logs.length}
             rowRenderer={rowRenderer}
             onScroll={this.onScroll}
+            scrollToIndex={this.props.follow ? this.props.logs.length - 1: undefined}
           />
           // <AnimatedList
           //   height={height}

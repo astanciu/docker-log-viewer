@@ -92,7 +92,7 @@ export class Main extends React.Component {
       <div className="main">
         <div className="main-content">
           <div className="main-toolbar">
-            {/* <div>
+            <div>
               <Button size="small" onClick={this.pause}>
                 Pause
               </Button>
@@ -103,13 +103,13 @@ export class Main extends React.Component {
                 Clear
               </Button>
             </div>
-            <div><Checkbox checked={this.state.autoScroll} label="Follow"/></div> */}
+            <div><Checkbox checked={this.state.autoScroll} label="Follow"/></div>
           </div>
           <div className="main-logs" ref={el => (this.logContainer = el)}>
             <LogPanel
               logs={this.state.logs}
               wrap={this.state.wrap}
-              scrollToRow={this.state.scrollToRow}
+              follow={this.state.autoScroll}
               setFollow={this.setFollow}
             />
           </div>

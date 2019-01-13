@@ -1,0 +1,15 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "text.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alex Stanciu <alex@auth0.com>",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "^4.1.0"
+  }
+}
