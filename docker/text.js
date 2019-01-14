@@ -11,7 +11,23 @@ async function go() {
     const t2 = faker.hacker.phrase()
     const t3 = faker.internet.userAgent()
 
-    console.log(`${name} - ${new Date().toLocaleString()} - ${t1} - ${t2} - ${t3}`);
+    const line = `${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}`
+    const manyLines = `${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    ${process.env.NAME} - ${new Date().toLocaleString()} - ${faker.company.catchPhrase()} - ${faker.hacker.phrase()} - ${faker.internet.userAgent()}
+    `
+    
+    Math.random() < 0.8 ? console.log(line) : console.log(manyLines)
     await pause();
   }
 }

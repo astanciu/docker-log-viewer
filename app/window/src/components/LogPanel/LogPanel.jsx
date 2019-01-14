@@ -2,33 +2,42 @@ import React from 'react';
 
 import { List, AutoSizer } from 'react-virtualized';
 import AnimatedList from './AnimatedList';
+// import AnimatedList from './AnimatedListOriginal';
 
 export class LogPanel extends React.Component {
   prevScrollTop=0
-  state = {
-    // scrollToRow: 1
-  };
-  componentWillReceiveProps(next) {
-    if (this.props.scrollToRow !== next.scrollToRow) {
-      this.setState({ scrollToRow: next.scrollToRow });
-    }
-  }
+  // state = {
+  //   scrollToRow: 1
+  // };
+  list = React.createRef();
+  // componentWillReceiveProps(next) {
+  //   if (this.props.scrollToRow !== next.scrollToRow) {
+  //     this.setState({ scrollToRow: next.scrollToRow });
+  //   }
+  // }
   animationComplete = () => {};
+
   onScroll = ({clientHeight, scrollHeight, scrollTop}) => {
-    if (this.props.follow && scrollTop < this.prevScrollTop){
+    const scrollDiff = scrollTop - this.prevScrollTop
+    // if (scrollTop < this.prevScrollTop){
+    if (this.props.follow && scrollDiff < -1){
       // Scrolled up, stop following
-      console.log('Stop follow')
+      this.list.current.stopAnimation()
       this.prevScrollTop = scrollTop;
+      
       return this.props.setFollow(false)
     }
-
-    if ( !this.props.follow && scrollTop + clientHeight - 8 >= scrollHeight){
+    
+    const sum = scrollTop+clientHeight
+    if (!this.props.follow && scrollHeight - sum < 10){
       // Scrolled to the bottom, start following
-      console.log('Start follow...')
+      cancelAnimationFrame(this.list.current.raf)
       return this.props.setFollow(true)
     }
+
     this.prevScrollTop = scrollTop;
   }
+
   render() {
     const wrapStyle = this.props.wrap
       ? {
@@ -58,27 +67,28 @@ export class LogPanel extends React.Component {
     return (
       <AutoSizer>
         {({ height, width }) => (
-          <List
-            height={height}
-            width={width}
-            rowHeight={20}
-            rowCount={this.props.logs.length}
-            rowRenderer={rowRenderer}
-            onScroll={this.onScroll}
-            scrollToIndex={this.props.follow ? this.props.logs.length - 1: undefined}
-          />
-          // <AnimatedList
+          // <List
           //   height={height}
           //   width={width}
           //   rowHeight={20}
           //   rowCount={this.props.logs.length}
           //   rowRenderer={rowRenderer}
-          //   duration={1000}
-          //   // onAnimationComplete={this.animationComplete}
-          //   // scrollToRow={this.state.scrollToRow}
-          //   scrollToRow={this.props.logs.length - 1}
-          //   onScroll={this.props.onScroll}
+          //   onScroll={this.onScroll}
+          //   scrollToIndex={this.props.follow ? this.props.logs.length - 1: undefined}
           // />
+          <AnimatedList
+            ref={this.list}
+            height={height}
+            width={width}
+            rowHeight={20}
+            rowCount={this.props.logs.length}
+            rowRenderer={rowRenderer}
+
+            scrollToRow={this.props.scrollToRow}
+            onScrollParent={this.onScroll}
+            
+            duration={1000}
+          />
         )}
       </AutoSizer>
     );

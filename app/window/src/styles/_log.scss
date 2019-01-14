@@ -12,11 +12,12 @@
   height: 65px;
   min-height: 65px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   -webkit-user-select: none;
   -webkit-app-region: drag;
+  padding: 0px 10px;
 
 }
 
@@ -25,7 +26,6 @@
   overflow-x: hidden;
   padding-left: 20px;
   flex-grow: 1;
-  flex: '1 1 auto'
 }
 
 .log {
@@ -41,6 +41,11 @@
   &:first-line {
     color: #97a0a7;
   }
+}
+
+.icon-button{
+  cursor: pointer;
+
 }
 
 .ReactVirtualized__Grid__innerScrollContainer{
